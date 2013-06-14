@@ -175,10 +175,13 @@ class JobRepository extends EntityRepository
             $excludedIds = array(-1);
         }
 
+        $now = new DateTime();
+        $now->setTimezone(new \DateTimeZone('UTC'));
+
         return $this->_em->createQuery("SELECT j FROM JMSJobQueueBundle:Job j LEFT JOIN j.dependencies d WHERE j.executeAfter < :now AND j.state = :state AND j.id NOT IN (:excludedIds) ORDER BY j.id ASC")
                     ->setParameter('state', Job::STATE_PENDING)
                     ->setParameter('excludedIds', $excludedIds)
-                    ->setParameter('now', new DateTime())
+                    ->setParameter('now', $now)
                     ->setMaxResults(1)
                     ->getOneOrNullResult();
     }

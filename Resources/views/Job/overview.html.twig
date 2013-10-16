@@ -18,6 +18,9 @@
             <th>Command</th>
             <th>State</th>
             <th>Created At</th>
+            <th>Execute After</th>
+            <th>Started At</th>
+            <th>Closed At</th>
             <th>Runtime</th>
         </tr>
     </thead>
@@ -29,7 +32,10 @@
             <td><a href="{{ path("jms_jobs_details", {"id": job.id}) }}">{{ job.id }}</a></td>
             <td><a href="{{ path("jms_jobs_details", {"id": job.id}) }}">{{ macros.command(job) }}</a></td>
             <td>{{ macros.state(job) }}</td>
-            <td>{{ macros.ago(job.createdAt) }}</td>
+            <td>{{ change_time_zone(job.createdAt) }}</td>
+            <td>{{ change_time_zone(job.executeAfter)}}</td>
+            <td>{{ change_time_zone(job.startedAt) }}</td>
+            <td>{{ change_time_zone(job.closedAt)}}</td>
             <td>{{ macros.runtime(job) }}</td>
         </tr>
         {% endfor %}
@@ -43,7 +49,10 @@
             <td><a href="{{ path("jms_jobs_details", {"id": job.id}) }}">{{ job.id }}</a></td>
             <td><a href="{{ path("jms_jobs_details", {"id": job.id}) }}">{{ macros.command(job) }}</a></td>
             <td>{{ macros.state(job) }}</td>
-            <td>{{ macros.ago(job.createdAt) }}</td>
+            <td>{{ change_time_zone(job.createdAt) }}</td>
+            <td>{{ change_time_zone(job.executeAfter)}}</td>
+            <td>{{ change_time_zone(job.startedAt) }}</td>
+            <td>{{ change_time_zone(job.closedAt)}}</td>
             <td>{{ macros.runtime(job) }}</td>
         </tr>
         {% else %}

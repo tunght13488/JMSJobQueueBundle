@@ -20,6 +20,7 @@
 
         <service id="jms_job_queue.twig.extension" class="%jms_job_queue.twig.extension.class%">
             <tag name="twig.extension" />
+            <argument type="service" id="service_container"/>
         </service>
     </services>
 </container>

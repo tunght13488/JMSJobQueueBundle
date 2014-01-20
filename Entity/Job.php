@@ -167,11 +167,13 @@ class Job
 
     public function __construct($command, array $args = array(), $confirmed = true)
     {
+        $utc = new \DateTimeZone('UTC');
+
         $this->command = $command;
         $this->args = $args;
         $this->state = $confirmed ? self::STATE_PENDING : self::STATE_NEW;
-        $this->createdAt = new \DateTime();
-        $this->executeAfter = new \DateTime();
+        $this->createdAt = new \DateTime('now', $utc);
+        $this->executeAfter = new \DateTime('now', $utc);
         $this->executeAfter = $this->executeAfter->modify('-1 second');
         $this->dependencies = new ArrayCollection();
         $this->retryJobs = new ArrayCollection();
@@ -180,8 +182,10 @@ class Job
 
     public function __clone()
     {
+        $utc = new \DateTimeZone('UTC');
+
         $this->state = self::STATE_PENDING;
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new \DateTime('now', $utc);
         $this->startedAt = null;
         $this->checkedAt = null;
         $this->closedAt = null;
